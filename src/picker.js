@@ -1,6 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react'
-import { ColorPropType, StyleSheet, View, ViewPropTypes as RNViewPropTypes } from 'react-native'
+import { ColorPropType, StyleSheet, View, ViewPropTypes as RNViewPropTypes, Platform, Picker } from 'react-native'
 import PropTypes from 'prop-types'
 import WheelCurvedPicker from './WheelCurvedPicker'
 
@@ -60,21 +60,39 @@ export default class Picker extends Component {
   render() {
     const { pickerData, style, ...props } = this.props
     const { selectedValue } = this.state
+    if(Platform.OS=='android'){
+      return (
+        <WheelCurvedPicker
+          {...props}
+          style={[styles.picker, style]}
+          selectedValue={selectedValue}
+          onValueChange={this.handleChange}
+        >
+          {pickerData.map((data, index) => (
+            <PickerItem
+              key={index}
+              value={typeof data.value !== 'undefined' ? data.value : data}
+              label={typeof data.label !== 'undefined' ? data.label : data.toString()}
+            />
+          ))}
+        </WheelCurvedPicker>
+      )
+    } 
     return (
-      <WheelCurvedPicker
-        {...props}
-        style={[styles.picker, style]}
-        selectedValue={selectedValue}
-        onValueChange={this.handleChange}
+      <Picker
+      {...props}
+      style={[styles.picker, style]}
+      selectedValue={selectedValue}
+      onValueChange={this.handleChange}
       >
         {pickerData.map((data, index) => (
-          <PickerItem
-            key={index}
-            value={typeof data.value !== 'undefined' ? data.value : data}
-            label={typeof data.label !== 'undefined' ? data.label : data.toString()}
-          />
-        ))}
-      </WheelCurvedPicker>
+            <Picker.Item
+              key={`${index}`}
+              value={typeof data.value !== 'undefined' ? data.value : data}
+              label={typeof data.label !== 'undefined' ? data.label : data.toString()}
+            />
+          ))}
+      </Picker>
     )
   }
 }
