@@ -1,6 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react'
-import { ColorPropType, StyleSheet, View, ViewPropTypes as RNViewPropTypes, Platform, Picker } from 'react-native'
+import { ColorPropType, StyleSheet, View, ViewPropTypes as RNViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
 import WheelCurvedPicker from './WheelCurvedPicker'
 
