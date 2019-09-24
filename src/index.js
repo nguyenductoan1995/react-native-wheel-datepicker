@@ -14,6 +14,6 @@ const registerCustomDatePickerIOS = (CustomDatePickerIOS) => {
   return DatePickerComponent;
 };
 
-const Picker = Platform.OS === "ios"?PickerIOS: Picker
+const Picker = Platform.OS === "ios" ? PickerIOS : Picker
 
 module.exports = {Picker, DatePicker: DatePickerComponent, registerCustomDatePickerIOS };
