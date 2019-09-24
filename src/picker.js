@@ -60,21 +60,39 @@ export default class Picker extends Component {
   render() {
     const { pickerData, style, ...props } = this.props
     const { selectedValue } = this.state
-      return (
-        <WheelCurvedPicker
-          {...props}
-          style={[styles.picker, style]}
-          selectedValue={selectedValue}
-          onValueChange={this.handleChange}
+      if(Platform.OS==='android'){
+        return (
+          <WheelCurvedPicker
+            {...props}
+            style={[styles.picker, style]}
+            selectedValue={selectedValue}
+            onValueChange={this.handleChange}
+          >
+            {pickerData.map((data, index) => (
+              <PickerItem
+                key={index}
+                value={typeof data.value !== 'undefined' ? data.value : data}
+                label={typeof data.label !== 'undefined' ? data.label : data.toString()}
+              />
+            ))}
+          </WheelCurvedPicker>
+        )
+      } 
+      return(
+        <Picker
+        {...props}
+            style={[styles.picker, style]}
+            selectedValue={selectedValue}
+            onValueChange={this.handleChange}
         >
-          {pickerData.map((data, index) => (
-            <PickerItem
-              key={index}
-              value={typeof data.value !== 'undefined' ? data.value : data}
-              label={typeof data.label !== 'undefined' ? data.label : data.toString()}
-            />
-          ))}
-        </WheelCurvedPicker>
+           {pickerData.map((data, index) => (
+              <Picker.Item
+                key={`${index}`}
+                value={typeof data.value !== 'undefined' ? data.value : data}
+                label={typeof data.label !== 'undefined' ? data.label : data.toString()}
+              />
+            ))}
+        </Picker>
       )
     } 
 }
