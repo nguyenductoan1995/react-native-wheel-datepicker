@@ -110,7 +110,7 @@ export default class DatePicker extends PureComponent {
   get timePicker() {
     const propsStyles = stylesFromProps(this.props)
 
-    const [hours, minutes, format] = [[], [], []]
+    const [hours, minutes] = [[], []]
 
     for (let i = 0; i <= 24; i += 1) {
       hours.push(i)

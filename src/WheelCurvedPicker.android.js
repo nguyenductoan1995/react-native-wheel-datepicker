@@ -77,7 +77,8 @@ class WheelCurvedPicker extends PureComponent {
 
 class Item extends PureComponent {
   static propTypes = {
-
+    value: React.PropTypes.any, // string or integer basically
+		label: React.PropTypes.string,
   };
 
    render() {
