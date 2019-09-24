@@ -60,7 +60,6 @@ export default class Picker extends Component {
   render() {
     const { pickerData, style, ...props } = this.props
     const { selectedValue } = this.state
-      if(Platform.OS==='android'){
         return (
           <WheelCurvedPicker
             {...props}
@@ -77,22 +76,5 @@ export default class Picker extends Component {
             ))}
           </WheelCurvedPicker>
         )
-      } 
-      return(
-        <Picker
-        {...props}
-            style={[styles.picker, style]}
-            selectedValue={selectedValue}
-            onValueChange={this.handleChange}
-        >
-           {pickerData.map((data, index) => (
-              <Picker.Item
-                key={`${index}`}
-                value={typeof data.value !== 'undefined' ? data.value : data}
-                label={typeof data.label !== 'undefined' ? data.label : data.toString()}
-              />
-            ))}
-        </Picker>
-      )
     } 
 }
