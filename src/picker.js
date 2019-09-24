@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import { ColorPropType, StyleSheet, View, ViewPropTypes as RNViewPropTypes, Text } from 'react-native';
-import PropTypes from 'prop-types';
-import WheelCurvedPicker from './WheelCurvedPicker';
+/* eslint-disable react/destructuring-assignment */
+import React, { Component } from 'react'
+import { ColorPropType, StyleSheet, View, ViewPropTypes as RNViewPropTypes } from 'react-native'
+import PropTypes from 'prop-types'
+import WheelCurvedPicker from './WheelCurvedPicker'
 
-const ViewPropTypes = RNViewPropTypes || View.propTypes;
+const ViewPropTypes = RNViewPropTypes || View.propTypes
 
-const PickerItem = WheelCurvedPicker.Item;
+const PickerItem = WheelCurvedPicker.Item
 
 const styles = StyleSheet.create({
   picker: {
-    backgroundColor: '#d3d3d3',
     height: 220,
   },
-});
+})
 
 
 export default class Picker extends Component {
@@ -24,7 +24,6 @@ export default class Picker extends Component {
     onValueChange: PropTypes.func.isRequired,
     pickerData: PropTypes.array.isRequired,
     style: ViewPropTypes.style,
-    selectedValue: PropTypes.any,
   };
 
   static defaultProps = {
@@ -39,23 +38,33 @@ export default class Picker extends Component {
     selectedValue: this.props.selectedValue,
   };
 
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.selectedValue !== prevState.selectedValue) {
+      return { selectedValue: nextProps.selectedValue }
+    }
+    return null
+  }
+
   handleChange = (selectedValue) => {
-    this.setState({ selectedValue });
-    this.props.onValueChange(selectedValue);
+    const { onValueChange } = this.props
+    this.setState({ selectedValue })
+    onValueChange(selectedValue)
   };
 
-  componentWillReceiveProps({ selectedValue }) {
-    this.setState({ selectedValue });
+  getValue = () => {
+    const { selectedValue } = this.state
+    return selectedValue
   }
 
   render() {
-    const { pickerData, style, ...props } = this.props;
-
+    const { pickerData, style, ...props } = this.props
+    const { selectedValue } = this.state
     return (
       <WheelCurvedPicker
         {...props}
         style={[styles.picker, style]}
-        selectedValue={this.state.selectedValue}
+        selectedValue={selectedValue}
         onValueChange={this.handleChange}
       >
         {pickerData.map((data, index) => (
@@ -66,10 +75,6 @@ export default class Picker extends Component {
           />
         ))}
       </WheelCurvedPicker>
-    );
-  }
-
-  getValue() {
-    return this.state.selectedValue;
+    )
   }
 }
