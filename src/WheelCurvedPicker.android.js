@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 
 const ViewPropTypes = RNViewPropTypes || View.propTypes
 
+const WheelCurvedPickerNative = requireNativeComponent('WheelCurvedPicker', WheelCurvedPicker);
+
 const stateFromProps = (props) => {
   let selectedIndex = 0
 
@@ -75,13 +77,17 @@ class WheelCurvedPicker extends PureComponent {
 
 class Item extends PureComponent {
   static propTypes = {
+    value: React.PropTypes.any, // string or integer basically
+		label: React.PropTypes.string,
   };
 
-   render: () => null;
+   render() {
+     return null
+   }
 }
 
 WheelCurvedPicker.Item = Item
 
-const WheelCurvedPickerNative = requireNativeComponent('WheelCurvedPicker', WheelCurvedPicker)
+
 
 export default WheelCurvedPicker

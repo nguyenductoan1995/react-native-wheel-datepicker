@@ -1,6 +1,6 @@
 'use strict';
 
-import { Platform } from 'react-native';
+import { Platform, PickerIOS } from 'react-native';
 import Picker from './picker';
 import DatePicker from './date-picker';
 
@@ -14,4 +14,6 @@ const registerCustomDatePickerIOS = (CustomDatePickerIOS) => {
   return DatePickerComponent;
 };
 
-module.exports = { Picker, DatePicker: DatePickerComponent, registerCustomDatePickerIOS };
+const Picker = Platform.OS === "ios"?PickerIOS: Picker
+
+module.exports = {Picker, DatePicker: DatePickerComponent, registerCustomDatePickerIOS };
