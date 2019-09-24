@@ -5,7 +5,7 @@ import React, { PureComponent } from 'react'
 import { ColorPropType, StyleSheet, View, ViewPropTypes as RNViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import Picker from './picker.android'
+import Picker from './picker'
 
 const ViewPropTypes = RNViewPropTypes || View.propTypes
 
@@ -112,14 +112,13 @@ export default class DatePicker extends PureComponent {
 
     const [hours, minutes, format] = [[], [], []]
 
-    for (let i = 0; i <= 12; i += 1) {
+    for (let i = 0; i <= 24; i += 1) {
       hours.push(i)
     }
 
     for (let i = 0; i <= 59; i += 1) {
       minutes.push(i)
     }
-   format = ['AM', 'PM']
     const { date } = this.state
     return [
       <View key="hour" style={styles.picker}>
@@ -145,7 +144,7 @@ export default class DatePicker extends PureComponent {
           ref={(format) => { this.formatComponent = format }}
           {...propsStyles}
           selectedValue={date.getFormat()}
-          pickerData={format}
+          pickerData={['AM', 'PM']}
           onValueChange={this.onFormatChange}
         />
       </View>,
